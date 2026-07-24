@@ -62,6 +62,46 @@ function imageFallback(): string {
 }
 
 // ============================================================
+// 0. Hero 区域 — 背景大图
+// ============================================================
+
+/** Hero 全屏背景：高质量摄影作品 */
+export const HERO_BG_IMAGE: ImageSource = {
+  primary: unsplash("photo-1542038784456-1ea8e935640e", "w=1920&q=85&fit=crop&auto=format"),
+  fallback: "linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 40%, #0d0d1f 100%)",
+  fallbackIsGradient: true,
+}
+
+/** Hero 底部预览条 — 展示 AI 能力缩略图 */
+export const HERO_PREVIEW_STRIP: ImageSource[] = [
+  {
+    primary: unsplash("photo-1531746020798-e6953c6e8e04", "w=300&q=75&fit=crop&auto=format"),
+    fallback: sceneGradient(["#2d1b69", "#e84393"]),
+    fallbackIsGradient: true,
+  },
+  {
+    primary: unsplash("photo-1506905925346-21bda4d32df4", "w=300&q=75&fit=crop&auto=format"),
+    fallback: sceneGradient(["#0c0c3d", "#0984e3"]),
+    fallbackIsGradient: true,
+  },
+  {
+    primary: unsplash("photo-1518834107812-67b0b7c58434", "w=300&q=75&fit=crop&auto=format"),
+    fallback: sceneGradient(["#1a3a1a", "#2d8a4e"]),
+    fallbackIsGradient: true,
+  },
+  {
+    primary: unsplash("photo-1554048612-b6a482bc67e5", "w=300&q=75&fit=crop&auto=format"),
+    fallback: sceneGradient(["#3d1a1a", "#e17055"]),
+    fallbackIsGradient: true,
+  },
+  {
+    primary: unsplash("photo-1492691527719-9d1e07e534b4", "w=300&q=75&fit=crop&auto=format"),
+    fallback: sceneGradient(["#1a2a3d", "#74b9ff"]),
+    fallbackIsGradient: true,
+  },
+]
+
+// ============================================================
 // 1. Hero 区域 — 3 张漂浮 AI 作品卡片
 // ============================================================
 

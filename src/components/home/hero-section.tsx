@@ -1,291 +1,145 @@
 "use client"
 
-import { useEffect, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ImageWithFallback } from "@/components/shared/image-with-fallback"
-import { ArrowRight, Sparkles, CheckCircle } from "lucide-react"
-import { HERO_FLOATING_CARDS } from "@/lib/images"
+import { ArrowRight, Sparkles, Star, Upload, Zap, ChevronDown } from "lucide-react"
+import { HERO_PREVIEW_STRIP } from "@/lib/images"
 
 /**
- * Hero Section — 视觉冲击第一屏
+ * Hero Section — 静态高级渐变背景
  *
- * 元素：
- * - 动态粒子画布背景
- * - 3 张漂浮 AI 作品卡片
- * - 主标题 + 副标题 + CTA
- * - 底部功能标签
+ * 深色摄影工作室风格：
+ * - 纯 CSS 多层渐变，零动画开销
+ * - 金色顶部光 + 蓝色底部光模拟专业影棚布光
+ * - 无闪烁、无重绘、无合成层问题
  */
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
-      {/* ---- 动态粒子背景 ---- */}
-      <ParticleBackground />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* ======== 静态多层渐变背景 ======== */}
+      {/* 基础层：深色渐变 */}
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #0f0f1a 0%, #141420 25%, #101018 50%, #0a0a10 100%)" }} />
+      {/* 金色光晕：右上角，模拟暖色主光源 */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 900px 700px at 80% 10%, rgba(251,191,36,0.07) 0%, transparent 100%)",
+        }}
+      />
+      {/* 蓝色光晕：左下角，模拟补光 */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 700px 600px at 15% 90%, rgba(59,130,246,0.05) 0%, transparent 100%)",
+        }}
+      />
+      {/* 琥珀暖光：中上区域，增强层次感 */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 600px 400px at 50% 30%, rgba(251,191,36,0.04) 0%, transparent 100%)",
+        }}
+      />
+      {/* 顶部边缘微光：模拟棚顶灯光 */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+        style={{
+          background: "linear-gradient(90deg, transparent 0%, rgba(251,191,36,0.15) 30%, rgba(251,191,36,0.15) 70%, transparent 100%)",
+        }}
+      />
 
-      {/* ---- 渐变光晕 ---- */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full opacity-20 animate-float-slow"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(251,191,36,0.3) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] rounded-full opacity-15 animate-float-slower"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%)",
-          }}
-        />
-      </div>
-
-      {/* ---- 漂浮 AI 作品卡片（桌面端） ---- */}
-      <div className="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none">
-        {HERO_FLOATING_CARDS.map((img, i) => (
-          <FloatingCard
-            key={i}
-            src={img}
-            index={i}
-          />
-        ))}
-      </div>
-
-      {/* ---- 主内容 ---- */}
-      <div className="relative z-10 container mx-auto max-w-6xl px-4 text-center">
+      {/* ======== 主内容 ======== */}
+      <div className="relative z-10 container mx-auto max-w-6xl px-4 pt-20 pb-8 text-center">
         {/* 顶部标签 */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm text-white/80 backdrop-blur-sm mb-8">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm text-white/80 mb-10">
           <Sparkles className="h-3.5 w-3.5 text-amber-400" />
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
-          </span>
+          <span className="h-2 w-2 rounded-full bg-green-400" />
           AI 驱动的智能图片创作平台
         </div>
 
         {/* 主标题 */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 text-balance leading-tight">
-          用 AI 将照片变
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-8 text-balance leading-[1.05]">
+          让每一张照片
           <br />
           <span className="gradient-text bg-gradient-to-r from-amber-300 via-amber-500 to-orange-400 bg-clip-text text-transparent">
-            艺术作品
+            成为作品
           </span>
         </h1>
 
-        <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 text-balance leading-relaxed">
-          上传一张照片，选择场景风格，AI 为你生成专业级视觉作品。
+        {/* 副标题 */}
+        <p className="text-base sm:text-lg md:text-xl text-white/50 max-w-xl mx-auto mb-12 text-balance leading-relaxed">
+          上传照片，AI 为你分析构图、优化光影、生成风格化创作
           <br className="hidden sm:block" />
-          人像精修 · 风景增强 · 电商出图 · 风格转换，一键完成。
+          从拍摄到后期，覆盖摄影全流程的智能助手
         </p>
 
-        {/* CTA 按钮组 */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        {/* CTA */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <Link href="/scene">
             <Button
               size="lg"
-              className="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-lg px-8 py-6 h-auto rounded-xl shadow-lg shadow-amber-500/25 transition-all hover:scale-105 hover:shadow-amber-500/40 group"
+              className="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-lg px-10 py-7 h-auto rounded-2xl shadow-xl shadow-amber-500/30 transition-colors duration-200 hover:scale-105"
             >
+              <Upload className="mr-2.5 h-5 w-5" />
               开始创作
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
           <Link href="/analyze">
             <Button
               size="lg"
               variant="outline"
-              className="border-white/20 text-white hover:bg-white/10 font-medium text-base px-6 py-6 h-auto rounded-xl backdrop-blur-sm"
+              className="border-white/10 text-white hover:bg-white/5 font-medium text-base px-8 py-7 h-auto rounded-2xl transition-colors duration-200 hover:border-white/20"
             >
+              <Zap className="mr-2 h-5 w-5 text-amber-400" />
               AI 照片分析
             </Button>
           </Link>
         </div>
 
-        {/* 底部功能标签 */}
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-white/50 text-sm">
-          <span className="flex items-center gap-1.5">
-            <CheckCircle className="h-3.5 w-3.5 text-green-400" />
-            7 种创作场景
+        {/* 社交证明 */}
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 mb-12">
+          {[
+            { value: "10,000+", label: "摄影师信赖" },
+            { value: "50,000+", label: "作品已生成" },
+            { value: "4.9", label: "用户评分", icon: true },
+          ].map((stat, i) => (
+            <div key={i} className="text-center">
+              <div className="flex items-center justify-center gap-1 text-2xl sm:text-3xl font-bold text-white">
+                {stat.icon && <Star className="h-5 w-5 text-amber-400 fill-amber-400" />}
+                {stat.value}
+              </div>
+              <div className="text-sm text-white/40 mt-1">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* AI 能力预览条 */}
+        <div className="hidden md:flex items-center justify-center gap-4">
+          <span className="text-xs text-white/30 font-medium tracking-wider uppercase">
+            一键生成
           </span>
-          <span className="flex items-center gap-1.5">
-            <CheckCircle className="h-3.5 w-3.5 text-green-400" />
-            AI 智能评分
-          </span>
-          <span className="flex items-center gap-1.5">
-            <CheckCircle className="h-3.5 w-3.5 text-green-400" />
-            Before/After 对比
-          </span>
-          <span className="flex items-center gap-1.5">
-            <CheckCircle className="h-3.5 w-3.5 text-green-400" />
-            免费开始使用
+          <div className="flex items-center gap-3">
+            {HERO_PREVIEW_STRIP.map((img, i) => (
+              <div
+                key={i}
+                className="w-14 h-14 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg hover:ring-amber-500/50 hover:scale-110 transition-transform duration-200 cursor-default"
+              >
+                <ImageWithFallback src={img} alt="" fill className="object-cover" />
+              </div>
+            ))}
+          </div>
+          <span className="text-xs text-white/30 font-medium tracking-wider uppercase ml-2">
+            7 种场景
           </span>
         </div>
 
-        {/* 向下滚动提示 */}
-        <div className="mt-16 animate-bounce-slow">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="mx-auto text-white/30"
-          >
-            <path
-              d="M12 5v14M5 12l7 7 7-7"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        {/* 向下滚动 */}
+        <div className="mt-14 flex justify-center">
+          <ChevronDown className="h-6 w-6 text-white/15" />
         </div>
       </div>
     </section>
-  )
-}
-
-// ---- 漂浮卡片 ----
-
-function FloatingCard({
-  src,
-  index,
-}: {
-  src: { primary: string; fallback: string; fallbackIsGradient: boolean }
-  index: number
-}) {
-  const positions = [
-    "left-[8%] top-[15%] animate-float-card-1",
-    "right-[10%] top-[20%] animate-float-card-2",
-    "left-[60%] bottom-[22%] animate-float-card-3",
-  ]
-
-  const rotations = ["-rotate-3", "rotate-2", "-rotate-2"]
-  const sizes = ["w-56 h-72", "w-48 h-64", "w-52 h-60"]
-  const delays = ["", "animation-delay-2000", "animation-delay-4000"]
-
-  return (
-    <div
-      className={`absolute ${positions[index]} ${rotations[index]} opacity-40 hover:opacity-80 transition-opacity duration-700`}
-    >
-      <div
-        className={`${sizes[index]} ${delays[index]} rounded-2xl overflow-hidden shadow-2xl shadow-black/40 ring-1 ring-white/10 bg-gray-900`}
-      >
-        <ImageWithFallback
-          src={src}
-          alt="AI作品展示"
-          fill
-          className="object-cover"
-        />
-        {/* 玻璃效果叠加 */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-      </div>
-    </div>
-  )
-}
-
-// ---- 动态粒子背景 ----
-
-function ParticleBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-
-    const setCanvasSize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    setCanvasSize()
-    window.addEventListener("resize", setCanvasSize)
-
-    const particles: Array<{
-      x: number
-      y: number
-      radius: number
-      dx: number
-      dy: number
-      opacity: number
-      speed: number
-    }> = []
-
-    // 创建粒子
-    const count = Math.min(60, Math.floor(window.innerWidth / 20))
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 2 + 0.5,
-        dx: (Math.random() - 0.5) * 0.4,
-        dy: (Math.random() - 0.5) * 0.4,
-        opacity: Math.random() * 0.5 + 0.1,
-        speed: Math.random() * 0.3 + 0.1,
-      })
-    }
-
-    let animationId: number
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      particles.forEach((p) => {
-        // 绘制
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`
-        ctx.fill()
-
-        // 移动
-        p.x += p.dx * p.speed
-        p.y += p.dy * p.speed
-
-        // 边界检测
-        if (p.x < 0) p.x = canvas.width
-        if (p.x > canvas.width) p.x = 0
-        if (p.y < 0) p.y = canvas.height
-        if (p.y > canvas.height) p.y = 0
-
-        // 脉冲透明度
-        p.opacity += (Math.random() - 0.5) * 0.01
-        p.opacity = Math.max(0.05, Math.min(0.5, p.opacity))
-      })
-
-      // 连接线
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-
-          if (dist < 150) {
-            ctx.beginPath()
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(255,255,255,${0.04 * (1 - dist / 150)})`
-            ctx.lineWidth = 0.5
-            ctx.stroke()
-          }
-        }
-      }
-
-      animationId = requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    return () => {
-      cancelAnimationFrame(animationId)
-      window.removeEventListener("resize", setCanvasSize)
-    }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 pointer-events-none"
-      aria-hidden="true"
-    />
   )
 }
