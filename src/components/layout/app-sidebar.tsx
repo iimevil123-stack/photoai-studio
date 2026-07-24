@@ -16,6 +16,7 @@ import {
   LogOut,
   Sparkles,
 } from "lucide-react"
+import { signOut } from "@/lib/auth/actions"
 
 const mainNavItems = [
   { href: "/workspace", label: "工作空间", icon: LayoutDashboard },
@@ -88,7 +89,7 @@ export function AppSidebar() {
 
       {/* Logout */}
       <div className="p-3">
-        <form action="/api/auth/logout" method="post">
+        <form action={signOut}>
           <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" type="submit">
             <LogOut className="h-4 w-4" />
             退出登录

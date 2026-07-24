@@ -16,7 +16,9 @@ export async function signIn(formData: FormData) {
   })
 
   if (error) {
-    return { error: error.message }
+    redirect(
+      `/auth/login?error=${encodeURIComponent(error.message)}`
+    )
   }
 
   redirect(redirectTo)
@@ -38,7 +40,9 @@ export async function signUp(formData: FormData) {
   })
 
   if (error) {
-    return { error: error.message }
+    redirect(
+      `/auth/register?error=${encodeURIComponent(error.message)}`
+    )
   }
 
   redirect(redirectTo)

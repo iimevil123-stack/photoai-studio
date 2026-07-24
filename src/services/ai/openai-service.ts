@@ -16,16 +16,18 @@ export class OpenAIService extends BaseAIService {
   readonly provider = "openai"
 
   async generateImage(
-    _input: GenerateImageInput,
+    input: GenerateImageInput,
     _onProgress?: ProgressCallback
   ): Promise<GenerateResult> {
+    void input; void _onProgress
     throw new Error("OpenAIService.generateImage() not implemented yet")
   }
 
   async generateVideo(
-    _input: GenerateVideoInput,
+    input: GenerateVideoInput,
     _onProgress?: ProgressCallback
   ): Promise<GenerateResult> {
+    void input; void _onProgress
     throw new Error("OpenAIService.generateVideo() not implemented yet")
   }
 

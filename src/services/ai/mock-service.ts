@@ -97,7 +97,6 @@ export class MockAIService extends BaseAIService {
     onProgress?: ProgressCallback
   ): Promise<GenerateResult> {
     const steps = [...IMAGE_GENERATION_STEPS]
-    const totalMs = steps.reduce((sum, s) => sum + s.durationMs, 0)
     const startTime = Date.now()
 
     for (let i = 0; i < steps.length; i++) {

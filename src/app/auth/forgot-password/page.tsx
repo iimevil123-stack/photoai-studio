@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,14 +10,17 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Camera } from "lucide-react"
-import { signUp } from "@/lib/auth/actions"
+import { Camera, ArrowLeft } from "lucide-react"
 
-export default function RegisterPage() {
+export const metadata: Metadata = {
+  title: "忘记密码",
+  description: "重置你的光影智助账户密码",
+}
+
+export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
       <div className="w-full max-w-md">
-
         <div className="text-center mb-8">
           <Link
             href="/"
@@ -27,32 +31,18 @@ export default function RegisterPage() {
           </Link>
         </div>
 
-
         <Card>
-
           <CardHeader className="text-center">
-
-            <CardTitle className="text-2xl">
-              创建账号
-            </CardTitle>
-
+            <CardTitle className="text-2xl">忘记密码</CardTitle>
             <CardDescription>
-              免费注册，开始你的 AI 摄影之旅
+              输入你的邮箱，我们将发送重置链接
             </CardDescription>
-
           </CardHeader>
 
-
           <CardContent>
-
-            <form action={signUp} className="space-y-4">
-
-
+            <form className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">
-                  邮箱
-                </Label>
-
+                <Label htmlFor="email">邮箱</Label>
                 <Input
                   id="email"
                   name="email"
@@ -62,64 +52,26 @@ export default function RegisterPage() {
                 />
               </div>
 
-
-              <div className="space-y-2">
-
-                <Label htmlFor="password">
-                  密码
-                </Label>
-
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="至少8位字符"
-                  minLength={8}
-                  required
-                />
-
-              </div>
-
-
-              <input
-                type="hidden"
-                name="redirect"
-                value="/workspace"
-              />
-
-
               <Button
                 type="submit"
                 className="w-full bg-amber-500 hover:bg-amber-600 text-white"
+                disabled
               >
-                注册
+                发送重置链接（即将上线）
               </Button>
-
-
             </form>
 
-
-            <div className="mt-6 text-center text-sm text-muted-foreground">
-
-              已有账号？
-
-              {" "}
-
+            <div className="mt-6 text-center">
               <Link
                 href="/auth/login"
-                className="text-amber-500 hover:text-amber-600 font-medium"
+                className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                登录
+                <ArrowLeft className="h-3 w-3" />
+                返回登录
               </Link>
-
             </div>
-
-
           </CardContent>
-
         </Card>
-
-
       </div>
     </div>
   )

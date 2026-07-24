@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr"
 
 export async function POST(request: NextRequest) {
   // 先创建响应对象，signOut 需要清除 Cookie
-  let response = NextResponse.redirect(new URL("/", request.url))
+  const response = NextResponse.redirect(new URL("/", request.url))
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

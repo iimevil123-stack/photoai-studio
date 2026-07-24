@@ -1,10 +1,21 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { HeroSection } from "@/components/home/hero-section"
 import { FeaturedWorks } from "@/components/home/featured-works"
+import { CapabilityCards } from "@/components/home/capability-cards"
 import { SceneShowcase } from "@/components/home/scene-showcase"
 import { ShowcaseGallery } from "@/components/home/showcase-gallery"
 import { CTASection } from "@/components/home/cta-section"
+
+export const metadata: Metadata = {
+  title: "光影智助 PhotoAI Studio - AI摄影创作助手",
+  description:
+    "上传一张照片，AI 为你生成专业级视觉作品。人像精修、风景增强、电商出图、风格转换，一键完成。免费开始使用。",
+  alternates: {
+    canonical: "/",
+  },
+}
 
 export default function HomePage() {
   return (
@@ -17,7 +28,10 @@ export default function HomePage() {
         {/* 第二屏：Before/After 精选案例 — 证明AI真实有效 */}
         <FeaturedWorks />
 
-        {/* 第三屏：7个AI场景模板 — 告诉用户能做什么 */}
+        {/* 第三屏：AI 能力卡片 — 覆盖摄影全流程 */}
+        <CapabilityCards />
+
+        {/* 第四屏：7个AI场景模板 — 告诉用户能做什么 */}
         <SceneShowcase />
 
         {/* 第四屏：AI作品画廊瀑布流 — 视觉展示 */}

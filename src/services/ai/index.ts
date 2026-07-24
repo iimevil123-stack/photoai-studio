@@ -13,10 +13,6 @@ const HAS_OPENAI_KEY =
   !!process.env.OPENAI_API_KEY &&
   !process.env.OPENAI_API_KEY.startsWith("your_")
 
-const HAS_ANTHROPIC_KEY =
-  !!process.env.ANTHROPIC_API_KEY &&
-  !process.env.ANTHROPIC_API_KEY.startsWith("your_")
-
 // ---- 服务实例（单例） ----
 
 let _imageService: BaseAIService | null = null

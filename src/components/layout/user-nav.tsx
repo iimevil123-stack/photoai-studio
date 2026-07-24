@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { User, Settings, LogOut } from "lucide-react"
 import Link from "next/link"
+import { signOut } from "@/lib/auth/actions"
 
 interface UserNavProps {
   email?: string | null
@@ -59,7 +60,7 @@ export function UserNav({ email }: UserNavProps) {
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
-        <form action="/api/auth/logout" method="post">
+        <form action={signOut}>
           <button type="submit" className="w-full">
             <DropdownMenuItem>
               <LogOut className="mr-2 h-4 w-4" />

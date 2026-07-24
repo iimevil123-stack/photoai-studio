@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Upload, X, ImageIcon } from "lucide-react"
+import { Upload, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { MAX_FILE_SIZE_BYTES } from "@/lib/constants"

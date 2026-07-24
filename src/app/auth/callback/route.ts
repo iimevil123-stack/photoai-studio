@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     // 先创建响应对象，Cookie 需要写入 response 而非 request
-    let response = NextResponse.redirect(`${origin}${redirect}`)
+    const response = NextResponse.redirect(`${origin}${redirect}`)
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,

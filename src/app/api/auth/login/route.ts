@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   const password = formData.get("password") as string
 
   // 先创建响应对象，Cookie 需要写入 response 而非 request
-  let response = NextResponse.redirect(new URL("/workspace", request.url))
+  const response = NextResponse.redirect(new URL("/workspace", request.url))
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

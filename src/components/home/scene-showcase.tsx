@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { cn } from "@/lib/utils"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ImageWithFallback } from "@/components/shared/image-with-fallback"

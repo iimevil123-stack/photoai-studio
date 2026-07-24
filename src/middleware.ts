@@ -36,6 +36,7 @@ export async function middleware(request: NextRequest) {
       request.nextUrl.pathname.startsWith("/assist") ||
       request.nextUrl.pathname.startsWith("/postprocess") ||
       request.nextUrl.pathname.startsWith("/portfolio") ||
+      request.nextUrl.pathname.startsWith("/settings") ||
       request.nextUrl.pathname.startsWith("/scene")) {
     if (!user) {
       const url = request.nextUrl.clone()
